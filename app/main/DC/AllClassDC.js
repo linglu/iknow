@@ -18,6 +18,7 @@ export default class AllClassDC {
     getAllClassByType = async (type, successCallback, failedCallback) => {
 
         let url = ClassUrl.get_all_class + "&class_type=" + type;
+        console.log('linky ==  url: ' + url);
         fetch(url)
             .then((response) => response.json())
             .then((result) => {

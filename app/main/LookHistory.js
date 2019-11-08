@@ -13,7 +13,6 @@ export default class LookHistory extends ListBasePage {
         this.state = {
             downloadedClasses: []
         }
-
     }
 
     getTitleBarConfigs() {
@@ -24,7 +23,20 @@ export default class LookHistory extends ListBasePage {
     }
 
     componentDidMount() {
-        // this.requestCameraPermission();
+        this.requestCameraPermission();
+    }
+
+    requestCameraPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('Granted');
+            } else {
+                console.log('Dennied');
+            }
+        } catch (err) {
+            console.warn(err);
+        }
     }
 
     renderContent() {
