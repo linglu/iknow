@@ -28,13 +28,18 @@ def insert_into_db():
 ```
 
 4、执行替换操作，去掉微信众筹等
-
+```shell
+replace_all.sh .
+```
 
 5、上传资源到服务器
 
 ```shell
 # 压缩
 zip res.zip res
+
+# 上传到服务器
+scp res.zip root@47.98.186.107:/
 
 # 解压
 unzip -O cp936 a.zip
