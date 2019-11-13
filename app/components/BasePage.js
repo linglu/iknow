@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {
     View,
     Platform,
-    BackHandler,
     StyleSheet,
+    Image,
     Text
 } from 'react-native';
 
@@ -27,9 +27,14 @@ export default class BasePage extends Component {
             dconfigs.title = config.title ? config.title : "请给我一个标题";
             dconfigs.right = config.right ? config.right : "";
             dconfigs.hasBack = config.hasBack;
+            dconfigs.onCick = this.onTitleBarRightItemClick.bind(this)
         }
 
         return dconfigs;
+    }
+
+    onTitleBarRightItemClick(){
+        console.log("touch onTitleBarRightItemClick ");
     }
 
     getTitleBarConfigs() {
@@ -54,9 +59,14 @@ export default class BasePage extends Component {
     renderTitleBar() {
         return (
             <View style={[Style.container, {width:windowWidth}]}>
-                {this.titleBarConfigs.hasBack ? <Touch onPress={() => this.props.navigation.goBack()}><Text style={Style.titleText}>返回</Text></Touch> : <View />}
+                {this.titleBarConfigs.hasBack ? 
+                    <Touch onPress={() => this.props.navigation.goBack()}>
+                        <Image style={{width: 16, height: 16}} source={require('../res/img/ic_back.png')} />
+                    </Touch> : <View />}
                 <Text style={Style.titleText}>{this.titleBarConfigs.title}</Text>
-                <Text style={Style.titleText}>{this.titleBarConfigs.right}</Text>
+                <Touch onPress={() => this.titleBarConfigs.onCick()}>
+                    <Text style={Style.titleText}>{this.titleBarConfigs.right}</Text>
+                </Touch>
             </View>
         );
     }

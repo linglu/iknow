@@ -1,5 +1,4 @@
 import {ClassUrl} from "../../network/Config";
-import {network} from "../../network/Network";
 
 
 /**
@@ -18,7 +17,7 @@ export default class AllClassDC {
     getAllClassByType = async (type, successCallback, failedCallback) => {
 
         let url = ClassUrl.get_all_class + "&class_type=" + type;
-        console.log('linky ==  url: ' + url);
+        console.log('linky ==  url ' + url);
         fetch(url)
             .then((response) => response.json())
             .then((result) => {
@@ -37,6 +36,7 @@ export default class AllClassDC {
     getAllLessonByClassId = async (classId, successCallback, failedCallback) => {
 
         let url = ClassUrl.get_all_lesson + "&class_id=" + classId;
+        console.log('linky ==  url ' + url);
         fetch(url)
             .then((response) => response.json())
             .then((result) => {

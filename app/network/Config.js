@@ -1,5 +1,6 @@
 
-let host = "http://192.168.4.106";
+// let host = "http://192.168.4.106";
+let host = "http://47.98.186.107";
 
 
 const ClassUrl = {

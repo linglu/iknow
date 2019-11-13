@@ -31,18 +31,17 @@ const BottomTab = createBottomTabNavigator(
           navigationOptions: ({navigation}) => {
 
               return {
-              
-              tabBarLabel: '已下载',
-              tabBarIcon: ({tintColor}) => (
-                  <FontAwesome
-                      name={'wpforms'}
-                      size={25}
-                      color={tintColor}
-                  />
-              ),
-              tabBarOnPress: () => {
-                  navigation.navigate("LookHistory")
-              }
+                tabBarLabel: '已下载',
+                tabBarIcon: ({tintColor}) => (
+                    <FontAwesome
+                        name={'wpforms'}
+                        size={25}
+                        color={tintColor}
+                    />
+                ),
+                tabBarOnPress: () => {
+                    navigation.navigate("LookHistory")
+                }
           }
           }
       },
@@ -84,11 +83,10 @@ const BottomTab = createBottomTabNavigator(
 
   {
     initialRouteName: 'LookHistory',
-    initialRouteParams: {title: 'Net'}, 
 
-    activeColor: '#f0edf6',
-    inactiveColor: '#3e2465',
-    barStyle: { backgroundColor: '#694fad' },
+    activeColor: '#ff6b00',
+    inactiveColor: '#000000',
+    barStyle: { backgroundColor: '#000000' },
   }
 );
 

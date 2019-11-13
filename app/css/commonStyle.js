@@ -10,7 +10,7 @@ const CommonStyle = {
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor:'#4398ff'
+        backgroundColor:'#ff6b00'
     }
 }
 

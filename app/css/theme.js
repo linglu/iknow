@@ -34,9 +34,9 @@ const THEME = {
     },
 
     titleBar: {
-        bgColor: 'rgb(0, 114, 247)',
+        bgColor: 'rgb(225, 107, 0)',
         titleColor: 'rgb(255,255,255)',
-        titleFontSize: 18,
+        titleFontSize: 16,
         itemColor: 'rgb(255,255,255)',
         itemFontSize: 14,
         leftColor: 'rgb(255,255,255)',

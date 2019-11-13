@@ -23,7 +23,7 @@ export default class ListBasePage extends BasePage {
     emptyView() {
         return (<View style={{flex: 1, alignItems: 'center', marginTop: 36, justifyContent: "center"}}>
                 <Image source={require('../res/img/ic_no_meter_data.png')} />
-                <Text style={{fontSize: 16, color: "#617D8B", marginTop: 22}}>暂无课程</Text>
+                <Text style={{fontSize: 16, color: "#FF6B00", marginTop: 22}}>暂无课程</Text>
             </View>)
     }
 }

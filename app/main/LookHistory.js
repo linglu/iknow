@@ -64,7 +64,7 @@ export default class LookHistory extends ListBasePage {
         return (<View style={{flex: 1, alignItems: 'center', marginTop: 36, justifyContent: "center"}}>
                 <Image source={require('../res/img/ic_no_meter_data.png')} />
                 <View style={{flex: 1, flexDirection: "column", alignItems: "center"}}>
-                    <Text style={{fontSize: 16, color: "#617D8B", marginTop: 22}}>暂无课程</Text>
+                    <Text style={{fontSize: 16, color: "#FF6B00", marginTop: 22}}>暂无课程</Text>
                     <Touch style={[CommonStyle.button, {marginTop: 10}]} onPress={() => this.gotoClassPage()}>
                         <Text style={CommonStyle.text}>去下载</Text>
                     </Touch>
@@ -86,7 +86,7 @@ class Item extends Component {
         return (
             <Touch style={{flex: 1, padding: 15, flexDirection: "column"}} onPress={this.props.onPress}>
                 <Text numberOfLines={1} style={{fontSize: 17, color: "#253238"}}>{this.props.item.class_name}</Text>
-                <Text style={{marginTop: 10, fontSize: 15, color: "617D8B"}}>主理人：{this.props.item.class_author}</Text>
+                <Text style={{marginTop: 10, fontSize: 15, color: "FF6B00"}}>主理人：{this.props.item.class_author}</Text>
             </Touch>
         );
     }

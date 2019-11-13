@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, FlatList, Image } from "react-native";
+import { Text, View, FlatList, ToastAndroid } from "react-native";
 import Touch from "../../components/Touch"
 import ListBasePage from '../../components/ListBasePage';
 import AllClassDC from '../DC/AllClassDC';
@@ -14,6 +14,7 @@ export default class LessonListPage extends ListBasePage {
         this.classItem = Object.assign({}, classItem);
 
         this.vm = new AllClassDC(props)
+        this.isrefreshing = false;
         this.state = {
             allLessons: []
         }
@@ -23,8 +24,16 @@ export default class LessonListPage extends ListBasePage {
         const {classItem} = this.props.navigation.state.params;
         return {
             title: classItem.class_name,
-            hasBack : true
+            hasBack : true,
+            right: "刷新",
         }
+    }
+
+    onTitleBarRightItemClick() {
+        ToastAndroid.show("正在刷新...", ToastAndroid.SHORT);
+        this.isrefreshing = true;
+        LocalStorage.delete("lesson_" + this.classItem.class_id);
+        this.getLessonList(this.classItem.class_id);
     }
 
     componentDidMount() {
@@ -50,6 +59,10 @@ export default class LessonListPage extends ListBasePage {
         // 请求服务器，获取课程列表
         this.vm.getAllLessonByClassId(classId, (lessons) => {
 
+            if (this.isrefreshing) {
+                ToastAndroid.show("刷新成功", ToastAndroid.SHORT);
+            }
+
             // 保存到本地
             LocalStorage.save("lesson_" + this.classItem.class_id, lessons);
 
@@ -57,6 +70,7 @@ export default class LessonListPage extends ListBasePage {
                 allLessons: lessons
             })
         }, (exp) => {
+            ToastAndroid.show("刷新失败", ToastAndroid.SHORT);
             console.log("exp: " + exp);
         })
     }
@@ -95,7 +109,7 @@ class Item extends Component {
         return (
             <Touch style={{flex: 1, padding: 18, flexDirection: "column"}} onPress={this.props.onPress}>
                 <Text style={{fontSize: 16, color: "#253238"}}>{this.props.lesson.lesson_name}</Text>
-                {/* <Text style={{marginTop: 10, fontSize: 15, color: "617D8B"}}>主理人：{this.props.lesson.class_author}</Text> */}
+                {/* <Text style={{marginTop: 10, fontSize: 15, color: "FF6B00"}}>主理人：{this.props.lesson.class_author}</Text> */}
             </Touch>
         );
     }
@@ -113,6 +127,6 @@ const Style = {
           borderRadius: 5,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor:'#4398ff'
+          backgroundColor:'#ff6b00'
       },
 }

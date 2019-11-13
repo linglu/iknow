@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, ToastAndroid } from "react-native";
 import BasePage from '../components/BasePage';
 import { FlatList } from 'react-native-gesture-handler';
 import AllClassDC from './DC/AllClassDC';
@@ -13,6 +13,7 @@ export default class ClassPage extends BasePage {
         super(props)
 
         this.vm = new AllClassDC(props)
+        this.isrefreshing = false;
         this.state = {
             allLectures: []
         }
@@ -21,9 +22,18 @@ export default class ClassPage extends BasePage {
     getTitleBarConfigs() {
         return {
             title: "更新中的课",
-            hasBack: false
+            hasBack: false,
+            right: "刷新"
         }
     }
+
+    onTitleBarRightItemClick() {
+        ToastAndroid.show("正在刷新...", ToastAndroid.SHORT);
+        this.isrefreshing = true;
+        const {classType} = this.props.navigation.state.params;
+        LocalStorage.delete("class_" + classType);
+        this.getClassList(classType);
+    } 
 
     componentDidMount() {
         
@@ -49,14 +59,19 @@ export default class ClassPage extends BasePage {
         // 请求服务器，获取课程列表
         this.vm.getAllClassByType(classType, (classList) => {
 
+            if (this.isrefreshing) {
+                ToastAndroid.show("刷新成功", ToastAndroid.SHORT);
+            }
+
             // 保存到本地
-            LocalStorage.save(classType, classList);
+            LocalStorage.save("class_" + classType, classList);
 
             // 刷新界面
             this.setState({
                 allLectures: classList
             })
         }, (exp) => {
+            ToastAndroid.show("刷新失败", ToastAndroid.SHORT);
             console.log("exp: " + exp);
         })   
     }
@@ -94,7 +109,7 @@ export default class ClassPage extends BasePage {
     emptyView() {
         return (<View style={{flex: 1, alignItems: 'center', marginTop: 36, justifyContent: "center"}}>
                 <Image source={require('../res/img/ic_no_meter_data.png')} />
-                <Text style={{fontSize: 16, color: "#617d8b", marginTop: 22}}>暂无课程</Text>
+                <Text style={{fontSize: 16, color: "#FF6B00", marginTop: 22}}>暂无课程</Text>
             </View>)
     }
 }
@@ -107,7 +122,7 @@ class Item extends Component {
         return (
             <Touch style={{flex: 1, padding: 15, flexDirection: "column"}} onPress={this.props.onPress}>
                 <Text numberOfLines={1} style={{fontSize: 17, color: "#253238"}}>{this.props.item.class_name}</Text>
-                <Text style={{marginTop: 10, fontSize: 15, color: "#617d8b"}}>主理人：{this.props.item.class_author}</Text>
+                <Text style={{marginTop: 10, fontSize: 15, color: "#FF6B00"}}>主理人：{this.props.item.class_author}</Text>
             </Touch>
         );
     }
@@ -124,7 +139,7 @@ const Style = {
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor:'#4398ff'
+        backgroundColor:'#ff6b00'
     },
 }
 
